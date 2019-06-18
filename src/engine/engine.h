@@ -30,13 +30,6 @@ typedef struct{
 }MonsterObj;
 
 
-typedef struct{
-  // Really just for local usage, as it's not high-performance.
-  float x, y, dx, dy;
-  int type;
-  void* properties;
-}FlatObj;
-
 typedef union{
   PlayerObj  p;
   RockObj    r;
@@ -45,11 +38,19 @@ typedef union{
 
 
 typedef struct{
+  // Really just for local usage, as it's not high-performance.
+  float x, y, dx, dy;
+  Type type;
+  Properties prop;
+}FlatObj;
+
+
+typedef struct{
   float* xs;
   float* ys;
   float* dxs;
   float* dys;
-  int  * types;
+  Type * types;
   Properties* props;
 
   int allocsize, fillsize;
@@ -58,9 +59,9 @@ typedef struct{
 
 
 FlatObj pullObj  (Objs*, int);
-void    swapObj  (Objs*, int, FlatObj);
-int     insertObj(Objs*, int, FlatObj);
-void    removeObj(Objs*, int);
+void    changeObj(Objs*, int, FlatObj);
+int     insertObj(Objs*, FlatObj);
+void    initObjs (Objs*, int);
 
 
 
